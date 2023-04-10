@@ -1,0 +1,75 @@
+# ResourceType CRD 
+# ========================
+# As defined on O-RAN.WG6.O2IMS-INTERFACE-R0003-v03 section 4.2.6.2.2
+# A new RESTful API endpoint is automatically exposed at:
+#
+# /apis/infrastructureinventory.o2ims.oran.alliance.org/v1/cluster/resourcetypes/
+#
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  # name must match the spec fields below, and be in the form: <plural>.<group>
+  name: resourcetypes.infrastructureinventory.o2ims.oran.alliance.org
+spec:
+  # group name to use for REST API: /apis/<group>/<version>
+  group: infrastructureinventory.o2ims.oran.alliance.org
+  # list of versions supported by this CustomResourceDefinition
+  versions:
+    - name: v1
+      # Each version can be enabled/disabled by Served flag.
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          description: 'Represent the type of a resource deployed in the O-Cloud Infrastructure
+            as defined on O-RAN.WG6.O2IMS-INTERFACE'
+          type: object
+          properties:
+            spec:
+              description: 'Information about a type of a resource deployed in the O-Cloud Infrastructure'
+              type: object
+              properties:
+                resourceTypeId:
+                  description: Unique identifier of the resource type
+                  type: string
+                name:
+                  description: Human readable name of the resource type
+                  type: string
+                description:
+                  description: Human readable description of the resource type 
+                  type: string
+                vendor:
+                  description: Provider of the Resource
+                  type: string
+                model:
+                  description: Information about the model of the resource as defined by it's provider
+                  type: string
+                version:
+                  description: Version or generation of the resource as defined by its provider
+                  type: integer
+                alarmDictionary:
+                  description: Dictionary of alarms for this resource type
+                  type: object
+                resourceKind:
+                  description: The enumerated set of values representing kind (UNDEFINED, PHYSICAL, LOGICAL) of the resource type
+                  type: string
+                  enum: [UNDEFINED, PHYSICAL, LOGICAL]
+                resourceClass:
+                  description: The enumerated set of values representing class (UNDEFINED, COMPUTE, NETWORKING, STORAGE) of the resource type
+                  type: string
+                  enum: [UNDEFINED, COMPUTE, NETWORKING, STORAGE]
+                extensions:
+                  description: List of vendor specific extentions to the related resource type
+                  type: object
+  # either Namespaced or Cluster
+  scope: Cluster
+  names:
+    # plural name to be used in the URL: /apis/<group>/<version>/<plural>
+    plural: resourcetypes
+    # singular name to be used as an alias on the CLI and for display
+    singular: resourcetype
+    # kind is normally the CamelCased singular type. Your resource manifests use this.
+    kind: ResourceType
+    # shortNames allow shorter string to match your resource on the CLI
+    shortNames:
+    - rt

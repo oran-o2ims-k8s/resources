@@ -1,0 +1,13 @@
+apiVersion: infrastructureinventory.o2ims.oran.alliance.org/v1
+kind: OCloud
+metadata:
+  name: cloud-tx-01
+spec:
+  globalCloudId: CLOUD-TX-01
+  name: "Cloud TX 01"
+  description: "TX Regional Cloud"
+  infrastructureManagementServiceEndPoint: https://o2ims
+  resourceTypes:
+     - sapphire-rapids-cpu
+  smoRegistrationService: https://smo
+

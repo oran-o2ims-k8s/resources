@@ -1,0 +1,75 @@
+# OCloud CRD 
+# ========================
+# As defined on O-RAN.WG6.O2IMS-INTERFACE-R0003
+# A new RESTful API endpoint is automatically exposed at:
+#
+# /apis/infrastructureinventory.o2ims.oran.alliance.org/v1/cluster/oclouds/
+#
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  # name must match the spec fields below, and be in the form: <plural>.<group>
+  name: oclouds.infrastructureinventory.o2ims.oran.alliance.org
+spec:
+  # group name to use for REST API: /apis/<group>/<version>
+  group: infrastructureinventory.o2ims.oran.alliance.org
+  # list of versions supported by this CustomResourceDefinition
+  versions:
+    - name: v1
+      # Each version can be enabled/disabled by Served flag.
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          description: 'Represent an instance of an O-Cloud as defined on O-RAN.WG6.O2IMS-INTERFACE'
+          type: object
+          properties:
+            spec:
+              description: 'Information representing an O-Cloud'
+              type: object
+              properties:
+                globalCloudId:
+                  description: Identifier of the O-Cloud instance. Globally unique across O-Cloud instances. This value was provided by the SMO with the callback URI at the beginning of O-Cloud genesis and used in registration at the end of genesis.
+                  type: string
+                name:
+                  description: Human readable name of the O-Cloud
+                  type: string
+                description:
+                  description: Human readable description of the O-Cloud
+                  type: string
+                infrastructureManagementServiceEndPoint:
+                  description: K8S API URL of the O2ims interface
+                  type: string
+                resourceTypes:
+                  description: Resource types list
+                  type: array
+                  items:
+                    type: string
+                resourcePools:
+                  description: Resource pools identifiers list
+                  type: array
+                  items:
+                    type: string
+                deploymentManagers:
+                  description: Deployment managers identifiers list
+                  type: array
+                  items:
+                    type: string
+                smoRegistrationService:
+                  description: IP address endpoint or the URL of the SMO
+                  type: string
+                extensions:
+                  description: These are unspecified (not standardized) properties (keys) which are tailored by the vendor to extend the information provided about the O-Cloud.
+                  type: object
+  # either Namespaced or Cluster
+  scope: Cluster
+  names:
+    # plural name to be used in the URL: /apis/<group>/<version>/<plural>
+    plural: oclouds
+    # singular name to be used as an alias on the CLI and for display
+    singular: ocloud
+    # kind is normally the CamelCased singular type. Your resource manifests use this.
+    kind: OCloud
+    # shortNames allow shorter string to match your resource on the CLI
+    shortNames:
+    - oc

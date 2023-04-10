@@ -1,0 +1,13 @@
+apiVersion: infrastructureinventory.o2ims.oran.alliance.org/v1
+kind: ResourceType
+metadata:
+  name: sapphire-rapids-cpu
+spec:
+  name: "Sapphire Rapids CPU"
+  description: "Intel fourth generation Xeon Scalable based on Intel 7"
+  vendor: "Intel"
+  model: "Intel(R) Xeon(R) Gold 6421N"
+  version: 7
+  resourceKind: PHYSICAL
+  resourceClass: COMPUTE
+
